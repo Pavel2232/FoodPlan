@@ -25,7 +25,9 @@
                     <ul class="navbar-nav w-100">
                         
                         <li class="nav-item align-items-center d-md-flex flex-grow-1 justify-content-end">
+                            <form action="{% url 'order' %}">
                             <button class="btn btn-outline-success me-2 shadow-none foodplan_green foodplan__border_green">Подписка</button>
+                            </form>
                             <button class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Войти</button>
                         </li>
                     </ul>
@@ -92,7 +94,7 @@
         <div class="container d-flex flex-row justify-content-center mb-2">
             <small class="text-center">
                 <h6>© Девман2022. Все права защищены. © Devman2022. All right reserved.</h6>
-                <a href="#" class="link-secondary">Политика конфиденциальности</a>
+                <a href="{% static 'docs/privacy_policy.pdf' %}" class="link-secondary">Политика конфиденциальности</a>
             </small>
         </div>
     </footer>
