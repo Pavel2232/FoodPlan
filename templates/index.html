@@ -14,9 +14,10 @@
     <header>
         <nav class="navbar navbar-light fixed-top navbar__opacity">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{% url 'home' %}">
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
                 </a>
+                <form action="{% url 'login' %}">
                 <button class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Войти</button>
             </div>
         </nav>
@@ -31,7 +32,9 @@
                             Вы получаете рецепты + список продуктов.<br>
                             Больше не нужно думать, что готовить.</h4>
                         <div class="d-block mt-3">
+                             <form action="{% url 'order'%}" target="_blank">
                             <button class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Хочу попробовать</button>
+                             </form>
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-light fixed-top navbar__opacity">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{% url 'home' %}">
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="логотип">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1"
@@ -47,7 +47,7 @@
                     <h2 class="text-center"><strong>Авторизация</strong></h2>
                 </div>
                 <div class="card px-5 py-3 d-flex align-items-center foodplan__shadow">
-                    <form>
+                    <form action="{% url 'lk' %}">
                         <h1 class="mb-4 text-center"><strong>Вход</strong></h1>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
@@ -56,7 +56,7 @@
                         <div class="mb-3">
                             <div class="d-flex align-items-center justify-content-between">
                                 <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                                <small><a href="#" class="link-dark foodplan_green">Забыли пароль?</a></small>
+                                <small><a href="{% url 'registration' %}" class="link-dark foodplan_green">Забыли пароль?</a></small>
                             </div>
                             <input type="password" class="form-control" id="password">
                         </div>
@@ -66,7 +66,7 @@
                                     class="btn w-100 btn-outline-success shadow-none foodplan_green foodplan__border_green">Войти</button>
                             </div>
                             <div class="col-12 col-sm-6 mt-3 d-flex justify-content-center align-items-center">
-                                <small>Нет аккаунта? <a href="#" class="link-dark foodplan_green">Зарегистрируйтесь</a></small>
+                                <small>Нет аккаунта? <a href="{% url 'registration' %}" class="link-dark foodplan_green">Зарегистрируйтесь</a></small>
                             </div>
                         </div>
                     </form>
