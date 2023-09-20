@@ -20,6 +20,7 @@ git clone https://github.com/Pavel2232/FoodPlan
 3. Заполните .env
 ```
 SECRET_KEY=ВАШ SECRET_KEY
+DATABASE_URL=psql://username:password@host/dbname
 ```
 
 4. Выполните:
