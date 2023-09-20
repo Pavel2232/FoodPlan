@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import dj_database_url
 from environ import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -69,7 +70,10 @@ WSGI_APPLICATION = 'FoodPlan.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db('DATABASE_URL')
+    'default': env.db(
+        'DATABASE_URL',
+        default='sqlite:////{0}'.format(os.path.join(BASE_DIR, 'db.sqlite3')),
+    )
 }
 
 # Password validation

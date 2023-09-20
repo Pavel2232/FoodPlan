@@ -28,3 +28,6 @@ DATABASE_URL=psql://username:password@host/dbname
 - ```./manage.py migrate```
 - ```./manage.py collectstatic```
 - ```./manage.py runserver```
+
+## Подключение к remote db
+`DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/NAME`
