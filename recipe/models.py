@@ -16,8 +16,8 @@ class Recipe(models.Model):
 
 
 class Ingredient(models.Model):
-    name = models.CharField(max_length=50)
-    calories = models.DecimalField(max_digits=5, decimal_places=2)
+    name = models.CharField(max_length=100)
+    calories = models.PositiveIntegerField()
 
     def __str__(self):
         return f'{self.name}'
@@ -25,6 +25,7 @@ class Ingredient(models.Model):
 
 class MeasurementUnit(models.Model):
     name = models.CharField(max_length=50)
+    weight = models.PositiveIntegerField()
 
     def __str__(self):
         return self.name
