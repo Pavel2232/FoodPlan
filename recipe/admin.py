@@ -5,7 +5,6 @@ from .models import Recipe, RecipeIngredient, Ingredient
 
 class RecipeIngredientItemInline(admin.TabularInline):
     model = RecipeIngredient
-    raw_id_fields = ['ingredient']
 
 
 @admin.register(Recipe)
