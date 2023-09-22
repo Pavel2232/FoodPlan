@@ -13,6 +13,12 @@ class Recipe(models.Model):
     ingredients = models.ManyToManyField(
         'recipe.Ingredient', through='recipe.RecipeIngredient'
     )
+    fish = models.BooleanField(default=False)
+    meat = models.BooleanField(default=False)
+    wheat = models.BooleanField(default=False)
+    honey = models.BooleanField(default=False)
+    nuts = models.BooleanField(default=False)
+    dairy = models.BooleanField(default=False)
 
 
 class Ingredient(models.Model):
