@@ -3,6 +3,7 @@
 **
 
 # except
+!data/**
 !manage.py
 !FoodPlan/**
 !templates/**
