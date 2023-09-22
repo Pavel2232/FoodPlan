@@ -34,9 +34,11 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          source: "static,deploy/docker-compose.yml,deploy/.env,deploy/nginx.conf"
+          source: "deploy/docker-compose.yml,deploy/.env,deploy/nginx.conf"
           target: "deploy"
           strip_components: 1
+          source: "static"
+          target: "deploy"
       - name: deploy app
         uses: appleboy/ssh-action@master
         with:
