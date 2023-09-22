@@ -26,7 +26,6 @@ jobs:
       - name: render config
         run: |
           cd deploy
-          static
           cat docker-compose-ci.yml | envsubst > docker-compose.yml
           cat .env_ci | envsubst > .env
       - name: copy files to server
