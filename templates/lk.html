@@ -32,14 +32,18 @@
                         </h4>
                         <h2 class="text-center"><strong>Личный кабинет</strong></h2>
                     </div>
-                    
+
                     <div class="card col-12 col-md-2 p-3 mb-3 d-flex flex-column align-items-center foodplan__shadow">
                         <div class="position-relative">
                             <img src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'img/avatar.jpg' %} {% endif %}" alt="" width="100" height="100" class="rounded-pill">
                             <span class="badge rounded-circle position-absolute bottom-0 end-0 foodplan__bg_green avatar__plus"><a href="#"
                                     class="link-dark text-decoration-none align-middle">+</a></span>
                         </div>
-                        <h3 class="card-title text-center"><span>{{ form.username.value }}</span></h3>
+                        <h3 class="card-title text-center">
+                            <span>
+
+                            </span>
+                        </h3>
                         <div class="d-block">
                             <button class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>
                         </div>
@@ -58,24 +62,23 @@
                             <div class="tab-content mt-2">
                                 <div class="tab-pane fade show active" id="data">
                                     <form action="{% url 'user:lk' %}" method="post">
+
                                         {% csrf_token%}
                                         <div class="mb-3">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <label for="{{ form.first_name.id_for_label}}" class="form-label">Имя</label>
-                                                <small><a href="#" class="link-dark foodplan_green">изменить</a></small>
-                                            </div>
+                                            <label for="{{ form.username.id_for_label }}" class="form-label">Логин</label>
+                                            {{ form.username }}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="{{ form.first_name.id_for_label}}" class="form-label">Имя</label>
                                             {{ form.first_name }}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="{{ form.last_name.id_for_label}}" class="form-label">Фамилия</label>
+                                            {{ form.last_name }}
                                         </div>
                                         <div class="mb-3">
                                             <label for="{{ form.email.id_for_label}}" class="form-label">Email</label>
                                             {{ form.email}}
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <label for="{{ form.password1.id_for_label}}" class="form-label">Пароль</label>
-                                                <small><a href="#" class="link-dark foodplan_green">изменить</a></small>
-                                            </div>
-                                            {{form.password1}}
                                         </div>
 
                                         <div class="d-block">

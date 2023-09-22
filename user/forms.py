@@ -21,6 +21,9 @@ class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control'
     }))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control'
+    }))
     username = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control'
     }))
@@ -36,21 +39,23 @@ class UserRegistrationForm(UserCreationForm):
     }))
     class Meta:
         model = get_user_model()
-        fields = ('first_name', 'username', 'email', 'password1', 'password2')
+        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
 
 class UserProfileForm(UserChangeForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control', 'readonly': True
+    }))
     first_name = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control'
     }))
-    username = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control', 'readonly': True
+    last_name = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control'
     }))
     email = forms.CharField(widget=forms.EmailInput(attrs={
         'class': 'form-control', 'readonly': True
     }))
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form-control', 'readonly': True
-    }))
+
     class Meta:
         model = CustomUser
-        fields = ('first_name', 'email', 'image', 'username', 'password1')
+        fields = ('first_name', 'last_name', 'username', 'email', 'image')
+
