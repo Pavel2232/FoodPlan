@@ -1,5 +1,7 @@
 from django.db import models
 
+from user.models import CustomUser
+
 
 class Recipe(models.Model):
     name = models.CharField(max_length=60)
@@ -33,3 +35,14 @@ class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     amount = models.PositiveIntegerField()
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    DIET_CHOICES = [
+        (1, 'Classic'),
+        (2, 'Low carb'),
+        (3, 'Vegan'),
+        (4, 'Keto'),
+    ]
+    diet = models.IntegerField(choices=DIET_CHOICES)
