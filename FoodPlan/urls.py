@@ -4,12 +4,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views import defaults as default_views
 from recipe.views import index_view
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', index_view, name='home'),
     path('recipe/', include('recipe.urls')),
     path('user/', include('user.urls')),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
 
 if settings.DEBUG:

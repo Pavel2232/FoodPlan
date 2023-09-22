@@ -1,8 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from user.forms import UserLoginForm, UserRegistrationForm
-from django.contrib import auth
+from user.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from django.contrib import auth, messages
 
 def login(request):
     if request.method == 'POST':
@@ -24,20 +24,23 @@ def registration(request):
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Поздравляем! Вы успешно зарегистрированы')
             return HttpResponseRedirect(reverse('user:login'))
     else:
         form = UserRegistrationForm()
-    context = {'form':form}
+    context = {'form': form}
     return render(request, 'registration.html', context)
 
 
-def auth_view(request):
-    return render(request, 'auth.html')
-
-
-def personal_account_view(request):
-    return render(request, 'lk.html')
-
-
-def registration_view(request):
-    return render(request, 'registration.html')
+def profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(instance=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('user:lk'))
+        else:
+            print(form.errors)
+    else:
+        form = UserProfileForm(instance=request.user)
+    context = {'title': 'Личный кабинет','form': form}
+    return render(request, 'lk.html', context)
