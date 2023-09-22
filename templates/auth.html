@@ -48,6 +48,20 @@
                     </a>
                     <h2 class="text-center"><strong>Авторизация</strong></h2>
                 </div>
+                {% if messages or form.non_field_errors %}
+                    <div class="alert
+                    {% if messages %} alert-success {% else %} alert-warning {% endif %}
+                    alert-dismissible fade show" role="alert" style="margin-top: 50px;">
+                        {% if messages %}
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        {% else %}
+                            {{ form.non_field_errors }}
+                        {% endif %}
+                    </div>
+                {% endif %}
+
                 <div class="card px-5 py-3 d-flex align-items-center foodplan__shadow">
                    <form action="{% url 'user:login' %}" method="post">
                     {% csrf_token %}
