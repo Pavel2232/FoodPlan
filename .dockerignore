@@ -1,0 +1,16 @@
+# ignore all
+
+**
+
+# except
+!data/**
+!manage.py
+!FoodPlan/**
+!templates/**
+!user/**
+!entrypoint.sh
+!poetry.lock
+!pyproject.toml
+!static/**
+!recipe/**
+!.env
