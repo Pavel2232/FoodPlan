@@ -114,6 +114,17 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = 'home'
+PASSWORD_RESET_FORM = 'user.forms.CustomPasswordResetForm'
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+EMAIL_HOST_USER = 'spsvk.po4ta@yandex.com'
+EMAIL_HOST_PASSWORD = 'vtukbrwrfknyqket'
+DEFAULT_FROM_EMAIL = 'spsvk.po4ta@yandex.com'
