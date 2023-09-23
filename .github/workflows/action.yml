@@ -20,6 +20,9 @@ jobs:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+      EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
+      EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+      DEFAULT_FROM_EMAIL: ${{ secrets.DEFAULT_FROM_EMAIL }}
     steps:
       - name: clone code
         uses: actions/checkout@v3
