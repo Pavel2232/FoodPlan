@@ -20,10 +20,10 @@ DIET_CHOICES = [
 
 
 class Recipe(models.Model):
-    name = models.CharField(max_length=60)
-    diet = models.IntegerField(choices=DIET_CHOICES)
+    name = models.CharField(max_length=60, verbose_name="Название")
+    diet = models.IntegerField(choices=DIET_CHOICES, verbose_name="Меню")
     ingredients = models.ManyToManyField(
-        'recipe.Ingredient', through='recipe.RecipeIngredient'
+        'recipe.Ingredient', through='recipe.RecipeIngredient', verbose_name="Состав"
     )
     fish = models.BooleanField(default=False)
     meat = models.BooleanField(default=False)
@@ -34,10 +34,18 @@ class Recipe(models.Model):
     meal = models.IntegerField(choices=MEAL_CHOICES)
     image = models.ImageField(blank=True)
 
+    class Meta:
+        verbose_name = "Рецепт"
+        verbose_name_plural = "Рецепты"
+
 
 class Ingredient(models.Model):
-    name = models.CharField(max_length=100)
-    calories = models.PositiveIntegerField()
+    name = models.CharField(max_length=100, verbose_name="Название")
+    calories = models.PositiveIntegerField(verbose_name="Калории")
+
+    class Meta:
+        verbose_name = "Ингридиент"
+        verbose_name_plural = "Ингридиенты"
 
     def __str__(self):
         return f'{self.name}'
@@ -47,6 +55,10 @@ class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     amount = models.PositiveIntegerField()
+
+    class Meta:
+        verbose_name = "Рецепт-ингридиент"
+        verbose_name_plural = "Рецепт-ингридиенты"
 
 
 class Subscription(models.Model):
@@ -72,3 +84,8 @@ class Subscription(models.Model):
     ]
     term = models.IntegerField(choices=TERM_CHOICES)
     meal = models.IntegerField(choices=MEAL_CHOICES)
+
+
+    class Meta:
+        verbose_name = "Подписка"
+        verbose_name_plural = "Подписки"
