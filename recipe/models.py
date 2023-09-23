@@ -32,6 +32,7 @@ class Recipe(models.Model):
     nuts = models.BooleanField(default=False)
     dairy = models.BooleanField(default=False)
     meal = models.IntegerField(choices=MEAL_CHOICES)
+    image = models.ImageField(blank=True)
 
 
 class Ingredient(models.Model):
