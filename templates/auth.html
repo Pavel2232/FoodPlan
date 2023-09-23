@@ -74,7 +74,7 @@
                         <div class="mb-3">
                             <div class="d-flex align-items-center justify-content-between">
                                 <label for="{{ form.password.id_for_label}}" class="form-label">Пароль</label>
-                                <small><a href="#" class="link-dark foodplan_green">Забыли пароль?</a></small>
+                                <small><a href="{% url 'reset_password' %}" class="link-dark foodplan_green">Забыли пароль?</a></small>
                             </div>
                             {{form.password}}
                         </div>
