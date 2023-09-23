@@ -3,8 +3,10 @@ from django.shortcuts import render
 
 # Create your views here.
 def index_view(request):
-    return render(request, 'index.html')
-
+    if request.user.id is None:
+        return render(request, 'index.html')
+    else:
+        return render(request, 'index_sign.html')
 
 def order_view(request):
     return render(request, 'order.html')
