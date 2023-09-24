@@ -14,7 +14,7 @@ class UserLoginForm(AuthenticationForm):
         'class': 'form-control'
     }))
     class Meta:
-        model = get_user_model()
+        model = CustomUser
         fields = ('username', 'password')
 
 class UserRegistrationForm(UserCreationForm):
@@ -38,7 +38,7 @@ class UserRegistrationForm(UserCreationForm):
         'class': 'form-control'
     }))
     class Meta:
-        model = get_user_model()
+        model = CustomUser
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
 
 class UserProfileForm(UserChangeForm):
@@ -54,6 +54,8 @@ class UserProfileForm(UserChangeForm):
     email = forms.CharField(widget=forms.EmailInput(attrs={
         'class': 'form-control', 'readonly': True
     }))
+    image = forms.ImageField(widget=forms.FileInput(attrs={
+        'class': 'custom-file-input'}), required=False)
 
     class Meta:
         model = CustomUser

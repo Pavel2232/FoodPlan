@@ -9,5 +9,5 @@ class CustomUser(AbstractUser):
     user_permissions = models.ManyToManyField(Permission, verbose_name='user permissions',
                                               related_name='customuser_set')
 
-    USERNAME_FIELD = 'email'
+
     EMAIL_FIELD = 'email'

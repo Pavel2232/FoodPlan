@@ -125,7 +125,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGOUT_REDIRECT_URL = 'home'
 PASSWORD_RESET_FORM = 'user.forms.CustomPasswordResetForm'
-
+AUTH_USER_MODEL = 'user.CustomUser'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
