@@ -18,3 +18,6 @@ def simple_recipe_view(request):
 
 def detail_recipe_view(request):
     return render(request, 'card2.html')
+
+def contacts_view(request):
+    return render(request, 'contacts.html')
