@@ -47,7 +47,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          source: "static"
+          source: "static, media"
           target: "deploy"
       - name: deploy app
         uses: appleboy/ssh-action@master

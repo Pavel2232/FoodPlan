@@ -18,7 +18,7 @@
                 <a class="navbar-brand" href="{% url 'home' %}">
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
                 </a>
-                <form action="{% url 'home' %}">
+                <form action="{% url 'user:lk' %}">
                 <button class="btn btn-outline-success me-2 shadow-none foodplan_green foodplan__border_green">Назад</button>
                     </form>
             </div>
@@ -26,39 +26,40 @@
     </header>
     <main style="margin-top: calc(2rem + 75px);">
         <section>
+            {% for recipe in recipes %}
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-4 d-flex justify-content-center">
                         <div class="card foodplan__card_borderless">
-                            <img src="{% static 'img/circle1.png' %}" alt="">
+
+                            <img src="{{ recipe.image.url }}" alt="" >
+                                <ul>
+
+                                </ul>
                         </div>
                     </div>
                     <div class="col-12 col-md-8 d-flex flex-column justify-content-between">
                         <div class="row">
-                            <h2>Название рецепта</h2>
+                        <a href="{% url 'card1' recipe.id %}">
+                            <h2>{{ recipe.name }}</h2>
+                        </a>>
                             <div class="col-12 col-sm-6 d-flex flex-column justify-content-between">
-                                <h6>Описание рецепта Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi eius nemo voluptatum minus
-                                    facilis blanditiis ut architecto rem maiores, aperiam aut debitis repellat quod voluptates natus, laboriosam hic
-                                    adipisci non.</h6>
-                                <h6>Рецепт рецепт Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi eius nemo voluptatum minus
-                                    facilis blanditiis ut architecto rem maiores, aperiam aut debitis repellat quod voluptates natus, laboriosam hic
-                                    adipisci non.</h6>
+                                <h6>Описание рецепта: {{ recipe.description }}.</h6>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <small class="link-secondary">Ингредиенты:</small>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
-                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
-                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
-                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
-                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
+                                 {% for recipe_ingredient in recipe.recipeingredient_set.all %}
+                                <li class="list-group-item">{{ recipe_ingredient.ingredient.name }} ({{ recipe_ingredient.amount }}г.)</li>
+                            {% endfor %}
                                 </ul>
-                                <small class="link-secondary">Общая калорийность: 1000 ккал</small>
+                                <small class="link-secondary">Общая калорийность: {{ recipe.total_calories }} ккал</small>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        {% endfor %}
         </section>
     </main>
     <footer>

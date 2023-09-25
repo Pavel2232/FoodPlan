@@ -12,5 +12,6 @@
 !poetry.lock
 !pyproject.toml
 !static/**
+!media/**
 !recipe/**
 !.env

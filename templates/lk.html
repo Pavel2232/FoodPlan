@@ -98,36 +98,31 @@
                                 <div class="tab-pane fade" id="menu">
                                     <div class="row">
                                         <div class="col-2">
-                                            <img src="{% static 'img/circle1.png' %}" alt="" class="w-100">
+                                            <a href="{% url 'my_blog' %}" class="link-dark text-decoration-none align-middle">
+                                            <img src="https://supportivy.com/wp-content/uploads/2022/01/Quelle-est-lorigine-du-gateau-russe.jpg" alt="" class="w-100">
+                                            </a>
                                         </div>
                                         <div class="col-10 col-md-10">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    {% for sub in subscription %}
-                                                    <h2>{{  sub.get_diet_display }}</h2>
+                                                    <h2>{{  subscription.get_diet_display }}</h2>
                                                 </div>
                                                 <div class="col-md-12 col-lg-9">
-                                                    <h6>Описание подписки Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius saepe ea nobis necessitatibus
-                                                        consectetur rem! Eligendi assumenda facere sint quibusdam dolorem quasi doloribus nemo, temporibus molestiae
-                                                        distinctio cum laboriosam sed. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius saepe ea nobis
-                                                        necessitatibus consectetur rem! Eligendi
-                                                        assumenda facere sint quibusdam dolorem quasi doloribus nemo, temporibus molestiae distinctio cum laboriosam
-                                                        sed.</h6>
+                                                    <h6>Описание подписки {{ subscription.description_menu }}.</h6>
                                                 </div>
                                                 <div class="col-md-12 col-lg-3 text-muted d-flex flex-column justify-content-between">
                                                     <div class="d-flex flex-row justify-content-between">
-                                                        <small>Персоны: </small><small>{{ sub.people_number }}</small>
+                                                        <small>Персоны: </small><small>{{ subscription.people_number }}</small>
                                                     </div>
                                                     <div class="d-flex flex-row justify-content-between">
-                                                        <small>Аллергии: </small><small> {% if sub.fish %} Да {% elif sub.meat %} Да {% elif sub.wheat %} Да {% elif sub.honey %} Да {% elif sub.dairy %} Да {% elif sub.nuts %} Да {% else %} Нет  </small> {% endif %}
+                                                        <small>Аллергии: </small><small> {% if subscription.fish %} Да {% elif subscription.meat %} Да {% elif subscription.wheat %} Да {% elif subscription.honey %} Да {% elif subscription.dairy %} Да {% elif subscription.nuts %} Да {% else %} Нет  </small> {% endif %}
                                                     </div>
                                                     <div class="d-flex flex-row justify-content-between">
-                                                        <small>Калории: </small><small>{{ meal }}</small>
+                                                        <small>Калории: </small><small>{% for recipe in recipes|slice:":1" %}{{ recipe.total_calories|add:"1000" }} {% endfor %}</small>
                                                     </div>
                                                     <div class="d-flex flex-row justify-content-between">
-                                                        <small>Кол-во приёмов пищи: </small><small>{{ meal }}</small>
+                                                        <small>Кол-во приёмов пищи: </small><small>{{ subscription.total_meal }}</small>
                                                     </div>
-                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>

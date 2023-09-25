@@ -33,6 +33,7 @@ class Recipe(models.Model):
     meal = models.IntegerField(choices=MEAL_CHOICES, verbose_name='Приём пищи')
     image = models.ImageField(blank=True, verbose_name='Фото рецепта')
     description = models.TextField(verbose_name='Описание')
+
     class Meta:
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
@@ -40,8 +41,11 @@ class Recipe(models.Model):
     def total_calories(self):
         total_calories = 0
         for recipe_ingredient in self.recipeingredient_set.all():
-            total_calories += recipe_ingredient.ingredient.calories * recipe_ingredient.amount
-        return total_calories
+            total_calories += recipe_ingredient.ingredient.calories / 100 * recipe_ingredient.amount
+        return int(total_calories)
+
+
+
     def __str__(self):
         return '{} {}'.format(self.name, self.diet)
 
@@ -76,7 +80,7 @@ class RecipeIngredient(models.Model):
 
 
 class Subscription(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Владелец подписки')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Владелец подписки', related_name='subscription')
     diet = models.IntegerField(choices=DIET_CHOICES, verbose_name='Меню')
     people_number = models.IntegerField(
         validators=[
@@ -105,3 +109,29 @@ class Subscription(models.Model):
     class Meta:
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
+
+    def total_meal(self):
+        meal = 0
+        if self.lunch:
+            meal += 1
+        if self.breakfast:
+            meal += 1
+        if self.dinner:
+            meal += 1
+        if self.dessert:
+            meal += 1
+        return meal
+
+    def description_menu(self):
+        if self.diet == 1:
+            return 'Норм хавчик'
+        if self.diet == 2:
+            return 'Типо схудну'
+        if self.diet == 3:
+            return 'Мясо отстой'
+        if self.diet == 4:
+            return 'Много жира, мало протеина'
+
+    def none_allergy(self):
+        if True not in [self.honey, self.fish, self.nuts, self.wheat, self.meat, self.dairy]:
+            return None

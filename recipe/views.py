@@ -36,7 +36,7 @@ def successfully_subscription(request):
     select2 = False
     select3 = False
     select4 = False
-    print( request.GET)
+    print(request.GET)
     if int(request.GET.get('select1')) == 0:
         select1 = True
     if int(request.GET.get('select2')) == 0:
@@ -81,12 +81,41 @@ def successfully_subscription(request):
 def contacts_view(request):
     return render(request, 'contacts.html')
 
+
+@login_required
+def my_blog(request):
+    subscription = Subscription.objects.get(user_id=request.user.id)
+    recipes = Recipe.objects.filter(diet=subscription.diet)
+    if subscription.none_allergy() is None:
+        recipes.filter(diet=subscription.diet)
+    elif subscription.fish:
+        recipes.filter(
+            fish=subscription.fish)
+    elif subscription.dairy:
+        recipes.filter(
+            dairy=subscription.dairy)
+    elif subscription.honey:
+        recipes.filter(
+            honey=subscription.honey)
+    elif subscription.wheat:
+        recipes.filter(
+            wheat=subscription.wheat)
+    elif subscription.nuts:
+        recipes.filter(
+            nuts=subscription.nuts)
+    elif subscription.meat:
+        recipes.filter(
+            meat=subscription.meat)
+
+    return render(request, 'card2.html', context={'recipes': recipes})
+
+
 def blog_view(request):
     first_three_recipes = Recipe.objects.all()[:3]
     context = {'first_three_recipes': first_three_recipes}
     return render(request, 'blog.html', context)
 
+
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     return render(request, 'card1.html', {'recipe': recipe})
-

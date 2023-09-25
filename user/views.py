@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from recipe.models import Subscription
+from recipe.models import Subscription, RecipeIngredient, Recipe
 from user.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from django.contrib import auth, messages
 
@@ -46,19 +46,16 @@ def profile(request):
             print(form.errors)
     else:
         form = UserProfileForm(instance=request.user)
-    subscription = Subscription.objects.filter(user_id=request.user.id)
+    subscription = Subscription.objects.get(user_id=request.user.id)
     meal_c = 0
-    for meal in subscription[:1]:
-        if meal.breakfast:
-            meal_c += 1
-        if meal.dinner:
-            meal_c += 1
-        if meal.lunch:
-            meal_c += 1
-        if meal.dessert:
-            meal_c += 1
-    callories = 0
-    # for callorie in subscription[:1]:
-    #     callorie.
-    context = {'title': 'Личный кабинет', 'form': form, 'subscription': subscription[:1], 'meal': meal_c}
+    if subscription.breakfast:
+        meal_c += 1
+    if subscription.dinner:
+        meal_c += 1
+    if subscription.lunch:
+        meal_c += 1
+    if subscription.dessert:
+        meal_c += 1
+    recipes = Recipe.objects.filter(diet=subscription.diet)
+    context = {'title': 'Личный кабинет', 'form': form, 'subscription': subscription,  'recipes': recipes}
     return render(request, 'lk.html', context, )
