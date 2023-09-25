@@ -3,89 +3,100 @@ from django.db import models
 
 from user.models import CustomUser
 
-
 MEAL_CHOICES = [
-        (1, 'Завтраки'),
-        (2, 'Обеды'),
-        (3, 'Ужины'),
-        (4, 'Десерты'),
-    ]
+    (1, 'Завтраки'),
+    (2, 'Обеды'),
+    (3, 'Ужины'),
+    (4, 'Десерты'),
+]
 
 DIET_CHOICES = [
-        (1, 'Classic'),
-        (2, 'Low carb'),
-        (3, 'Vegan'),
-        (4, 'Keto'),
-    ]
+    (1, 'Classic'),
+    (2, 'Low carb'),
+    (3, 'Vegan'),
+    (4, 'Keto'),
+]
 
 
 class Recipe(models.Model):
-    name = models.CharField(max_length=60, verbose_name="Название")
-    diet = models.IntegerField(choices=DIET_CHOICES, verbose_name="Меню")
+    name = models.CharField(max_length=60, verbose_name='Название')
+    diet = models.IntegerField(choices=DIET_CHOICES, verbose_name='Меню')
     ingredients = models.ManyToManyField(
-        'recipe.Ingredient', through='recipe.RecipeIngredient', verbose_name="Состав"
+        'recipe.Ingredient', through='recipe.RecipeIngredient', verbose_name='Состав'
     )
-    fish = models.BooleanField(default=False)
-    meat = models.BooleanField(default=False)
-    wheat = models.BooleanField(default=False)
-    honey = models.BooleanField(default=False)
-    nuts = models.BooleanField(default=False)
-    dairy = models.BooleanField(default=False)
-    meal = models.IntegerField(choices=MEAL_CHOICES)
-    image = models.ImageField(blank=True)
+    fish = models.BooleanField(default=False, verbose_name='Рыба')
+    meat = models.BooleanField(default=False, verbose_name='Мясо')
+    wheat = models.BooleanField(default=False, verbose_name='Зерновые')
+    honey = models.BooleanField(default=False, verbose_name='Продукты пчеловодства')
+    nuts = models.BooleanField(default=False, verbose_name='Орехи')
+    dairy = models.BooleanField(default=False, verbose_name='Молочные продукты')
+    meal = models.IntegerField(choices=MEAL_CHOICES, verbose_name='Приём пищи')
+    image = models.ImageField(blank=True, verbose_name='Фото рецепта')
 
     class Meta:
-        verbose_name = "Рецепт"
-        verbose_name_plural = "Рецепты"
+        verbose_name = 'Рецепт'
+        verbose_name_plural = 'Рецепты'
+
+    def __str__(self):
+        return '{} {}'.format(self.name, self.diet)
 
 
 class Ingredient(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Название")
-    calories = models.PositiveIntegerField(verbose_name="Калории")
+    MEASUREMENT = [
+        (1, 'Шт'),
+        (2, 'Гр.'),
+        (3, 'Мл'),
+    ]
+
+    name = models.CharField(max_length=100, verbose_name='Название')
+    calories = models.PositiveIntegerField(verbose_name='Калории')
+    measurement = models.IntegerField(choices=MEASUREMENT, default=2)
 
     class Meta:
-        verbose_name = "Ингридиент"
-        verbose_name_plural = "Ингридиенты"
+        verbose_name = 'Ингредиент'
+        verbose_name_plural = 'Ингредиенты'
 
     def __str__(self):
         return f'{self.name}'
 
 
 class RecipeIngredient(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    amount = models.PositiveIntegerField()
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Рецепт')
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, verbose_name='Ингредиент')
+    amount = models.PositiveIntegerField(verbose_name='Вес')
 
     class Meta:
-        verbose_name = "Рецепт-ингридиент"
-        verbose_name_plural = "Рецепт-ингридиенты"
+        verbose_name = 'Рецепт-ингредиент'
+        verbose_name_plural = 'Рецепт-ингредиенты'
 
 
 class Subscription(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    diet = models.IntegerField(choices=DIET_CHOICES)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Владелец подписки')
+    diet = models.IntegerField(choices=DIET_CHOICES, verbose_name='Меню')
     people_number = models.IntegerField(
         validators=[
             MinValueValidator(1, message="Value must be at least 1."),
             MaxValueValidator(6, message="Value cannot be greater than 6.")
-        ]
+        ], verbose_name='На сколько персон'
     )
-    fish = models.BooleanField(default=False)
-    meat = models.BooleanField(default=False)
-    wheat = models.BooleanField(default=False)
-    honey = models.BooleanField(default=False)
-    nuts = models.BooleanField(default=False)
-    dairy = models.BooleanField(default=False)
+    fish = models.BooleanField(default=False, verbose_name='Рыба')
+    meat = models.BooleanField(default=False, verbose_name='Мясо')
+    wheat = models.BooleanField(default=False, verbose_name='Зерновые')
+    honey = models.BooleanField(default=False, verbose_name='Продукты пчеловодства')
+    nuts = models.BooleanField(default=False, verbose_name='Орехи')
+    dairy = models.BooleanField(default=False, verbose_name='Молочные продукты')
     TERM_CHOICES = [
         (1, '1 мес.'),
         (2, '3 мес.'),
         (3, '6 мес.'),
         (4, '12 мес.'),
     ]
-    term = models.IntegerField(choices=TERM_CHOICES)
-    meal = models.IntegerField(choices=MEAL_CHOICES)
-
+    term = models.IntegerField(choices=TERM_CHOICES, verbose_name='Срок подписки')
+    breakfast = models.BooleanField(default=True, verbose_name='Завтрак')
+    lunch = models.BooleanField(default=True, verbose_name='Обед')
+    dinner = models.BooleanField(default=True, verbose_name='Ужин')
+    dessert = models.BooleanField(default=True, verbose_name='Десерт')
 
     class Meta:
-        verbose_name = "Подписка"
-        verbose_name_plural = "Подписки"
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
