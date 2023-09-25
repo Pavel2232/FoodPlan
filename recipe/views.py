@@ -36,7 +36,6 @@ def successfully_subscription(request):
     select2 = False
     select3 = False
     select4 = False
-    print(request.GET)
     if int(request.GET.get('select1')) == 0:
         select1 = True
     if int(request.GET.get('select2')) == 0:
