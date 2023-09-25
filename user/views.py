@@ -47,15 +47,6 @@ def profile(request):
     else:
         form = UserProfileForm(instance=request.user)
     subscription = Subscription.objects.get(user_id=request.user.id)
-    meal_c = 0
-    if subscription.breakfast:
-        meal_c += 1
-    if subscription.dinner:
-        meal_c += 1
-    if subscription.lunch:
-        meal_c += 1
-    if subscription.dessert:
-        meal_c += 1
     recipes = Recipe.objects.filter(diet=subscription.diet)
     context = {'title': 'Личный кабинет', 'form': form, 'subscription': subscription,  'recipes': recipes}
     return render(request, 'lk.html', context, )
