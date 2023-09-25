@@ -32,11 +32,16 @@ class Recipe(models.Model):
     dairy = models.BooleanField(default=False, verbose_name='Молочные продукты')
     meal = models.IntegerField(choices=MEAL_CHOICES, verbose_name='Приём пищи')
     image = models.ImageField(blank=True, verbose_name='Фото рецепта')
-
+    description = models.TextField(verbose_name='Описание')
     class Meta:
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
 
+    def total_calories(self):
+        total_calories = 0
+        for recipe_ingredient in self.recipeingredient_set.all():
+            total_calories += recipe_ingredient.ingredient.calories * recipe_ingredient.amount
+        return total_calories
     def __str__(self):
         return '{} {}'.format(self.name, self.diet)
 

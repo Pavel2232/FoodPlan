@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from recipe.models import Subscription
+from recipe.models import Subscription, Recipe
 from user.models import CustomUser
 
 
@@ -80,3 +80,13 @@ def successfully_subscription(request):
 
 def contacts_view(request):
     return render(request, 'contacts.html')
+
+def blog_view(request):
+    first_three_recipes = Recipe.objects.all()[:3]
+    context = {'first_three_recipes': first_three_recipes}
+    return render(request, 'blog.html', context)
+
+def recipe_detail(request, recipe_id):
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    return render(request, 'card1.html', {'recipe': recipe})
+
