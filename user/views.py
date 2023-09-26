@@ -46,7 +46,9 @@ def profile(request):
             print(form.errors)
     else:
         form = UserProfileForm(instance=request.user)
-    subscription = Subscription.objects.get(user_id=request.user.id)
-    recipes = Recipe.objects.filter(diet=subscription.diet)
-    context = {'title': 'Личный кабинет', 'form': form, 'subscription': subscription,  'recipes': recipes}
+    context = {'title': 'Личный кабинет', 'form': form}
+    if Subscription.objects.get(user_id=request.user.id):
+        subscription = Subscription.objects.get(user_id=request.user.id)
+        recipes = Recipe.objects.filter(diet=subscription.diet)
+        context = {'title': 'Личный кабинет', 'form': form, 'subscription': subscription,  'recipes': recipes}
     return render(request, 'lk.html', context, )
