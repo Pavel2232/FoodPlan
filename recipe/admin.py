@@ -10,6 +10,7 @@ class RecipeIngredientItemInline(admin.TabularInline):
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     inlines = [RecipeIngredientItemInline]
+    list_display = ['name', 'diet']
 
 
 @admin.register(Ingredient)
@@ -20,4 +21,3 @@ class IngredientAdmin(admin.ModelAdmin):
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
     pass
-
