@@ -46,9 +46,13 @@ def profile(request):
             print(form.errors)
     else:
         form = UserProfileForm(instance=request.user)
-    context = {'title': 'Личный кабинет', 'form': form}
-    if Subscription.objects.get(user_id=request.user.id):
+    try:
+        Subscription.objects.get(user_id=request.user.id)
         subscription = Subscription.objects.get(user_id=request.user.id)
         recipes = Recipe.objects.filter(diet=subscription.diet)
         context = {'title': 'Личный кабинет', 'form': form, 'subscription': subscription,  'recipes': recipes}
-    return render(request, 'lk.html', context, )
+        return render(request, 'lk.html', context, )
+    except:
+        context = {'title': 'Личный кабинет', 'form': form}
+        return render(request, 'lk.html', context, )
+
